@@ -30,7 +30,9 @@ module.exports = [
   },
   {
     handle: 'router',
-    options: {}
+    options: {
+      prefix: ['/metaphor']
+    }
   },
   'logic',
   'controller'
