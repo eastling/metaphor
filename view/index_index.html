@@ -481,6 +481,8 @@
 
           event.preventDefault();
 
+          listDom.innerHTML = '<li class="no-data">加载中...</li>';
+
           ajax.get('/index/getList', { data: params }).then(res => {
             if (typeof res === 'string') {
               res = JSON.parse(res);
