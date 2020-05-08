@@ -36,7 +36,7 @@ exports.model = {
   },
   mysql: {
     handle: mysql,
-    database: process.env.ENV_DATABASE_NAME,
+    database: 'metaphor',
     prefix: '',
     encoding: 'utf8',
     host: process.env.ENV_DATABASE_HOST,
