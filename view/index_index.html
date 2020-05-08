@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>张爱玲隐喻</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        line-height: 20px;
+        font-family: arial;
+        box-sizing: border-box;
+      }
+      a,
+      a:visited {
+        color: #337ab7;
+        text-decoration: none;
+      }
+      html,
+      body,
+      .wrap {
+        height: 100%;
+      }
+      header {
+        text-align: center;
+        font-size: 40px;
+        height: 60px;
+        line-height: 60px;
+        color: #337ab7;
+        margin-bottom: 20px;
+      }
+    </style>
+    <style>
+      .box {
+        height: calc(100% - 80px);
+        position: relative;
+      }
+      .form-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 400px;
+        height: 100%;
+        padding: 15px;
+      }
+      .list {
+        margin-left: 400px;
+        padding: 20px;
+        height: 100%;
+        overflow-y: scroll;
+        list-style: none;
+
+        border-left: 1px solid #ddd;
+      }
+      .list > li {
+        margin-bottom: 15px;
+        cursor: pointer;
+        color: #9e9e9e;
+      }
+      .list > li:hover {
+        color: #337ab7;
+      }
+      .no-data {
+        text-align: center;
+        margin-top: 200px;
+        color: #aaa;
+      }
+      .form-box .item {
+        margin-bottom: 20px;
+      }
+      .form-box .item > label {
+        color: #aaa;
+        width: 100px;
+        display: inline-block;
+      }
+      .form-box .item input {
+        outline: none;
+        border: 1px solid #ddd;
+      }
+      .form-box .item .input {
+        width: 180px;
+        height: 26px;
+        padding-left: 10px;
+      }
+      .form-box .item span > label {
+        margin-right: 10px;
+        vertical-align: -1px;
+      }
+      .properties-content {
+        display: inline-block;
+        width: calc(100% - 110px);
+        vertical-align: text-top;
+      }
+      .properties-content input,
+      .properties-content label {
+        margin-bottom: 15px;
+      }
+      button {
+        outline: none;
+        display: inline-block;
+        width: 70px;
+        height: 30px;
+        line-height: 32px;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .search-button {
+        background-color: #337ab7;
+        margin-right: 25px;
+      }
+      .reset-button {
+        background-color: #ff9800;
+      }
+
+      .ps h2 {
+        margin-bottom: 10px;
+      }
+
+      .ps p {
+        margin-bottom: 10px;
+        color: #aaa;
+        font-size: 14px;
+      }
+
+      .modal-mask {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      .modal {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 500px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+
+        border: 1px solid #ddd;
+      }
+
+      .modal-header {
+        height: 30px;
+        text-align: right;
+      }
+      .modal-header .close {
+        position: relative;
+
+        display: inline-block;
+        width: 1px;
+        height: 15px;
+        background-color: #aaa;
+        transform: rotate(45deg);
+      }
+      .modal-header .close::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: rotate(90deg);
+
+        width: 1px;
+        height: 15px;
+        background-color: #aaa;
+
+        cursor: pointer;
+      }
+      .modal-header .close:hover {
+        background-color: #337ab7;
+      }
+      .modal-header .close:hover::before {
+        background-color: #337ab7;
+      }
+      .modal-item {
+        position: relative;
+        margin-bottom: 15px;
+
+        min-height: 30px;
+      }
+      .modal-item-label {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 100px;
+      }
+      .modal-item-content {
+        margin-left: 100px;
+        color: #337ab7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>张爱玲隐喻</header>
+      <div class="box">
+        <form class="form-box">
+          <div class="item">
+            <label for="content">隐喻：</label>
+            <input
+              autocomplete="off"
+              name="content"
+              id="content"
+              class="input"
+            />
+          </div>
+
+          <div class="item">
+            <label for="title">所属作品名：</label>
+            <input autocomplete="off" name="title" id="title" class="input" />
+          </div>
+
+          <!-- <div class="item">
+            <label for="author">作者：</label>
+            <input
+              autocomplete="off"
+              label="作者"
+              name="author"
+              id="author"
+              class="input"
+            />
+          </div> -->
+
+          <div class="item">
+            <label for="position">位置：</label>
+            <span>
+              <input type="radio" id="position0" name="position" value="0" />
+              <label for="position0">本体</label>
+              <input type="radio" id="position1" name="position" value="1" />
+              <label for="position1">喻体</label>
+            </span>
+          </div>
+
+          <div class="item">
+            <label for="scope">范畴：</label>
+            <span>
+              <input type="radio" id="scope0" name="scope" value="0" />
+              <label for="scope0">范畴外</label>
+              <input type="radio" id="scope1" name="scope" value="1" />
+              <label for="scope1">范畴内</label>
+            </span>
+          </div>
+
+          <div class="item">
+            <label for="type">隐喻类型：</label>
+            <span>
+              <input type="radio" id="type0" name="type" value="construct" />
+              <label for="type0">结构</label>
+
+              <input type="radio" id="type1" name="type" value="position" />
+              <label for="scope1">方位</label>
+
+              <input type="radio" id="type2" name="type" value="object" />
+              <label for="type2">实体</label>
+
+              <input type="radio" id="type3" name="type" value="docker" />
+              <label for="type3">容器</label>
+            </span>
+          </div>
+
+          <div class="item">
+            <label for="properties">性状：</label>
+            <span class="properties-content">
+              <input
+                type="radio"
+                id="properties0"
+                name="properties"
+                value="shape"
+              />
+              <label for="properties0">形状</label>
+              <input
+                type="radio"
+                id="properties1"
+                name="properties"
+                value="size"
+              />
+              <label for="properties1">大小</label>
+              <input
+                type="radio"
+                id="properties2"
+                name="properties"
+                value="color"
+              />
+              <label for="properties2">颜色</label>
+              <input
+                type="radio"
+                id="properties3"
+                name="properties"
+                value="number"
+              />
+              <label for="properties3">数量</label>
+              <input
+                type="radio"
+                id="properties4"
+                name="properties"
+                value="temperature"
+              />
+              <label for="properties4">温度</label>
+              <input
+                type="radio"
+                id="properties5"
+                name="properties"
+                value="taste"
+              />
+              <label for="properties5">味道</label>
+              <input
+                type="radio"
+                id="properties6"
+                name="properties"
+                value="velocity"
+              />
+              <label for="properties6">速度</label>
+              <input
+                type="radio"
+                id="properties7"
+                name="properties"
+                value="trace"
+              />
+              <label for="properties7">轨迹</label>
+              <input
+                type="radio"
+                id="properties8"
+                name="properties"
+                value="time"
+              />
+              <label for="properties8">时间</label>
+              <input
+                type="radio"
+                id="properties9"
+                name="properties"
+                value="space"
+              />
+              <label for="properties9">空间</label>
+            </span>
+          </div>
+
+          <div class="item">
+            <button htmlType="submit" class="search-button">
+              搜索
+            </button>
+
+            <button type="reset" id="reset" class="reset-button">
+              重置
+            </button>
+          </div>
+
+          <div class="ps">
+            <h2>补充说明：</h2>
+            <p>
+              1.限定性搜索，即输入的搜索条件越多，范围越小；直接点击「搜索」获得全部例句。
+            </p>
+            <p>
+              2.「隐喻」指句子内容的包含匹配。比如填入“太阳”，将匹配出所有含有“太阳”两字的句子。
+            </p>
+            <p>3.点击句子本身可获得“本体”、“喻体”、“新范畴”三个特性。</p>
+          </div>
+        </form>
+        <ul id="list" class="list"></ul>
+        <div class="modal-mask" id="modal-mask">
+          <div class="modal">
+            <div class="modal-header">
+              <i class="close" id="close"></i>
+            </div>
+            <div class="modal-item">
+              <div class="modal-item-label">本体：</div>
+              <div class="modal-item-content" id="subject"></div>
+            </div>
+            <div class="modal-item">
+              <div class="modal-item-label">喻体：</div>
+              <div class="modal-item-content" id="metaphor"></div>
+            </div>
+            <div class="modal-item">
+              <div class="modal-item-label">新范畴：</div>
+              <div class="modal-item-content" id="character"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const modalMask = document.getElementById('modal-mask');
+      let dataList = [];
+      const listDom = document.getElementById('list');
+
+      listDom.addEventListener('click', function (e) {
+        const curId = Number(e.target.dataset.uid);
+        const currentData = dataList.find(item => item.id === curId);
+
+        modalMask.style.display = 'block';
+
+        const subject = document.getElementById('subject');
+        const metaphor = document.getElementById('metaphor');
+        const character = document.getElementById('character');
+
+        subject.innerText = currentData.subject;
+        metaphor.innerText = currentData.metaphor;
+        character.innerText = currentData.character;
+      });
+
+      const close = document.getElementById('close');
+      close.addEventListener('click', function () {
+        modalMask.style.display = 'none';
+      });
+
+      modalMask.addEventListener('click', function () {
+        modalMask.style.display = 'none';
+      });
+
+      class Ajax {
+        constructor() {}
+
+        get(url, options) {
+          return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+
+            let params = '';
+
+            if (options.data && typeof options.data === 'object') {
+              Object.keys(options.data).forEach(key => {
+                params += `${key}=${options.data[key]}&`;
+              });
+            }
+
+            const que = params.replace(/&$/, '');
+
+            url = que ? `${url}?${que}` : url;
+
+            xhr.open('GET', url, true);
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                resolve(xhr.responseText);
+              }
+            };
+
+            xhr.onerror = function (e) {
+              reject(e);
+            };
+
+            xhr.send();
+          });
+        }
+      }
+
+      const ajax = new Ajax();
+
+      const form = document.querySelector('form');
+      form.addEventListener(
+        'submit',
+        function (event) {
+          const params = {};
+          var data = new FormData(form);
+          for (const [key, value] of data) {
+            if (value) {
+              params[key] = value;
+            }
+          }
+
+          event.preventDefault();
+
+          ajax.get('/index/getList', { data: params }).then(res => {
+            if (typeof res === 'string') {
+              res = JSON.parse(res);
+            }
+            const { data } = res;
+            dataList = data;
+
+            let list = '';
+
+            (data || []).forEach(item => {
+              list += `<li data-uid=${item.id}>${item.content}--《${item.title}》</li>`;
+            });
+
+            if (!list) {
+              list = '<li class="no-data">没符合条件的数据</li>';
+            }
+
+            listDom.innerHTML = list;
+          });
+        },
+        false
+      );
+
+      document.getElementById('reset').addEventListener('click', function (e) {
+        listDom.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>
