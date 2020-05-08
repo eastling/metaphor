@@ -3,7 +3,7 @@
     {
       "name": "metaphor",
       "script": "production.js",
-      "cwd": "/Users/east/Documents/try/metaphor",
+      "cwd": "/root/metaphor",
       "exec_mode": "fork",
       "max_memory_restart": "1G",
       "autorestart": true,
