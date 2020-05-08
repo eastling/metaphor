@@ -5,7 +5,7 @@ const mysql = require('think-model-mysql');
 const { Console, File, DateFile } = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
-require('dotenv').config();
+require('dotenv').config({ path: path.join(think.ROOT_PATH, '/.env') });
 
 /**
  * cache adapter config
@@ -23,7 +23,6 @@ exports.cache = {
     gcInterval: 24 * 60 * 60 * 1000 // gc interval
   }
 };
-
 /**
  * model adapter config
  * @type {Object}
