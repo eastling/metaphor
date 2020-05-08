@@ -24,9 +24,9 @@
       }
       header {
         text-align: center;
-        font-size: 40px;
-        height: 60px;
-        line-height: 60px;
+        font-size: 36px;
+        height: 50px;
+        line-height: 50px;
         color: #337ab7;
         margin-bottom: 20px;
       }
@@ -199,6 +199,9 @@
         margin-left: 100px;
         color: #337ab7;
       }
+      .description {
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -365,6 +368,13 @@
             </p>
             <p>3.点击句子本身可获得“本体”、“喻体”、“新范畴”三个特性。</p>
           </div>
+          <div class="description">
+            <a
+              target="__blank"
+              href="https://github.com/eastling/metaphor/blob/master/README.md"
+              >详细说明</a
+            >
+          </div>
         </form>
         <ul id="list" class="list"></ul>
         <div class="modal-mask" id="modal-mask">
@@ -394,18 +404,20 @@
       const listDom = document.getElementById('list');
 
       listDom.addEventListener('click', function (e) {
-        const curId = Number(e.target.dataset.uid);
-        const currentData = dataList.find(item => item.id === curId);
+        if (e.target.tagName.toUpperCase() === 'LI') {
+          const curId = Number(e.target.dataset.uid);
+          const currentData = dataList.find(item => item.id === curId);
 
-        modalMask.style.display = 'block';
+          modalMask.style.display = 'block';
 
-        const subject = document.getElementById('subject');
-        const metaphor = document.getElementById('metaphor');
-        const character = document.getElementById('character');
+          const subject = document.getElementById('subject');
+          const metaphor = document.getElementById('metaphor');
+          const character = document.getElementById('character');
 
-        subject.innerText = currentData.subject;
-        metaphor.innerText = currentData.metaphor;
-        character.innerText = currentData.character;
+          subject.innerText = currentData.subject;
+          metaphor.innerText = currentData.metaphor;
+          character.innerText = currentData.character;
+        }
       });
 
       const close = document.getElementById('close');
